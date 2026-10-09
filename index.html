@@ -44,10 +44,13 @@ input[type=checkbox]{width:auto}textarea{resize:vertical}
 .paper li b{width:5mm;flex:none;font-weight:400}.paper p{margin:0 0 .8mm}.paper p.in{margin-left:6mm}
 .paper .sg td{text-align:center;width:50%}.paper .sp{height:22mm}.paper .nm{font-weight:700;text-decoration:underline}
 .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--ac);padding:8px 16px;border-radius:8px;display:none;z-index:9}
+.app.wide{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}
+.app.focus{grid-template-columns:1fr}.app.focus .pw{display:none}.app.focus .form{max-width:1000px;margin:0 auto;width:100%;border:0}
+#sc textarea{min-height:12em;max-height:75vh;font-size:15px;line-height:1.5}
 @media(max-width:900px){.app{grid-template-columns:1fr}.form{border:0}.pw{padding:10px}}
 @media print{
  @page{size:A4;margin:20mm 25mm}
- body{background:#fff}.top,.form,.toast{display:none!important}
+ body{background:#fff}.top,.form,.toast{display:none!important}.pw{display:block!important}
  .app{display:block}.pw{padding:0;background:#fff;overflow:visible}
  .paper{zoom:1!important;width:auto;min-height:0;padding:0;box-shadow:none;margin:0}
 }
@@ -56,6 +59,7 @@ input[type=checkbox]{width:auto}textarea{resize:vertical}
 <body>
 <div class="top">
   <div class="brand"><svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg)"/><path d="M14 12h14l8 8v16a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z" fill="#fff" fill-opacity=".95"/><path d="M28 12v8h8" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linejoin="round"/><path d="M17 25h14M17 29.5h14M17 34h8" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round"/><path d="M34 28l5 5-8 3z" fill="#22d3ee"/></svg><h2>Notulen<span>BKPSDM Kota Pekalongan</span></h2></div>
+  <button data-act="view" id="vb">Tampilan: Normal</button>
   <button data-act="new">Baru</button>
   <button data-act="save">Simpan</button>
   <button data-act="docx">Unduh Word</button>
@@ -77,7 +81,7 @@ input[type=checkbox]{width:auto}textarea{resize:vertical}
     <div class="g2"><div><label>Mulai</label><input type="time" data-k="mulai"></div>
     <div><label>Selesai</label><input type="time" data-k="selesai" id="selesai"></div></div>
     <label class="ck"><input type="checkbox" data-k="sd"> Sampai selesai</label>
-    <label>Tempat</label><input data-k="tempat" placeholder="Mis. Dinarpus Kota Pekalongan">
+    <label>Tempat</label><input data-k="tempat" placeholder="Mis. BKPSDM Kota Pekalongan">
     <label>Jenis kegiatan</label><input data-k="jenisKeg" placeholder="Kosong = sama dengan nama kegiatan">
   </fieldset>
   <fieldset><legend>Poin tambahan (opsional)</legend>
@@ -150,15 +154,22 @@ function upd(){
   sv(KD,S);fit();
 }
 function fit(){
-  const p=$('#paper'),w=$('#pw').clientWidth-(innerWidth<=900?20:40);
+  const p=$('#paper'),pw=$('#pw').clientWidth;if(!pw)return;const w=pw-(innerWidth<=900?20:40);
   p.style.zoom=Math.min(1,w/(210*3.7795));
 }
 addEventListener('resize',fit);
 
+function grow(t){t.style.height='auto';t.style.height=Math.min(t.scrollHeight+4,innerHeight*.75)+'px'}
 function rf(){
   $('#ex').innerHTML=S.extra.map((x,i)=>`<div class="r"><input data-x="l" data-i="${i}" placeholder="Label (mis. Peserta)" value="${a(x.l)}"><input data-x="v" data-i="${i}" placeholder="Isi" value="${a(x.v)}"><button data-act="xdel" data-i="${i}" aria-label="Hapus">✕</button></div>`).join('');
   const ty=(v,t,s)=>`<option value="${v}"${s.type===v?' selected':''}>${t}</option>`;
   $('#sc').innerHTML=S.sections.map((s,i)=>`<div class="card"><div class="h"><input data-s="title" data-i="${i}" placeholder="Judul bagian (opsional)" value="${a(s.title)}"><select data-s="type" data-i="${i}">${ty('bullet','Bullet',s)}${ty('num','Nomor',s)}${ty('para','Paragraf',s)}</select><button data-act="sup" data-i="${i}" aria-label="Naik">↑</button><button data-act="sdn" data-i="${i}" aria-label="Turun">↓</button><button data-act="sdel" data-i="${i}" aria-label="Hapus">✕</button></div><textarea data-s="text" data-i="${i}" rows="6" style="margin-top:6px" placeholder="Satu baris = satu butir">${e(s.text)}</textarea></div>`).join('');
+  document.querySelectorAll('#sc textarea').forEach(grow);
+}
+function setView(m,save){
+  const A=document.querySelector('.app');A.classList.toggle('wide',m===1);A.classList.toggle('focus',m===2);
+  $('#vb').textContent='Tampilan: '+['Normal','Lebar','Fokus menulis'][m];setView.m=m;
+  if(save)sv('notulen_view',m);fit();document.querySelectorAll('#sc textarea').forEach(grow)
 }
 function rh(){
   const H=ld(KH,[]);
@@ -170,7 +181,7 @@ function fill(){
   rf();tog();upd();
 }
 document.addEventListener('input',ev=>{
-  const t=ev.target,d=t.dataset;
+  const t=ev.target,d=t.dataset;if(t.tagName==='TEXTAREA')grow(t);
   if(d.k){S[d.k]=t.type==='checkbox'?t.checked:t.value;if(d.k==='sd'||d.k==='kiri')tog()}
   else if(d.x)S.extra[+d.i][d.x]=t.value;
   else if(d.s)S.sections[+d.i][d.s]=t.value;
@@ -284,6 +295,7 @@ document.addEventListener('click',ev=>{
   const b=ev.target.closest('[data-act]');if(!b)return;
   const A=b.dataset.act,i=+b.dataset.i,id=b.dataset.id;
   const mv=(arr,i,j)=>{if(j<0||j>=arr.length)return;[arr[i],arr[j]]=[arr[j],arr[i]]};
+  if(A==='view'){setView(((setView.m||0)+1)%3,true);return}
   if(A==='print'){upd();print();return}
   if(A==='pdf'){toPdf(model());return}
   if(A==='docx'){toDocx(model());return}
@@ -299,7 +311,7 @@ document.addEventListener('click',ev=>{
   if(A==='sdn')mv(S.sections,i,i+1);
   rf();upd();
 });
-fill();rh();
+fill();rh();setView(ld('notulen_view',0),false);
 </script>
 </body>
 </html>
