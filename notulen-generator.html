@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notulen - BKPSDM Kota Pekalongan</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='13' fill='%238b5cf6'/%3E%3Cpath d='M14 12h14l8 8v16H12V14z' fill='%23fff'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
+<style>
+:root{--bg:#14101f;--p1:#1d1830;--p2:#271f40;--ln:#3a2f5c;--tx:#ece8f7;--mu:#a69cc4;--ac:#8b5cf6;--ac2:#a78bfa}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 Inter,system-ui,sans-serif}
+.top{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 16px;background:var(--p1);border-bottom:1px solid var(--ln)}
+.brand{display:flex;gap:10px;align-items:center;margin-right:auto}.brand h2{margin:0;font:700 18px/1.1 'Space Grotesk',sans-serif;letter-spacing:-.01em}.brand h2 span{display:block;font:500 11px Inter,sans-serif;color:var(--mu);letter-spacing:0}
+button{font:500 13px Inter,sans-serif;color:var(--tx);background:var(--p2);border:1px solid var(--ln);border-radius:8px;padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--ac2)}button.pri{background:var(--ac);border-color:var(--ac)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ac2);outline-offset:1px}
+.app{display:grid;grid-template-columns:minmax(330px,430px) 1fr;align-items:start}
+.form{padding:14px 16px 40px;border-right:1px solid var(--ln)}
+fieldset{border:1px solid var(--ln);border-radius:10px;margin:0 0 12px;padding:10px 12px 12px;background:var(--p1)}
+legend{font:700 13px 'Space Grotesk',sans-serif;color:var(--ac2);padding:0 6px}
+label{display:block;color:var(--mu);font-size:12px;margin:8px 0 3px}
+label.ck{display:flex;gap:6px;align-items:center;color:var(--tx);font-size:13px}
+input,select,textarea{width:100%;font:14px Inter,sans-serif;color:var(--tx);background:var(--bg);border:1px solid var(--ln);border-radius:7px;padding:7px 9px}
+input[type=checkbox]{width:auto}textarea{resize:vertical}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}.g3{display:grid;grid-template-columns:1fr 1fr 80px;gap:8px}
+.r{display:grid;grid-template-columns:1fr 1.4fr auto;gap:6px;margin-top:6px}
+.card{border:1px solid var(--ln);border-radius:8px;padding:8px;margin-top:8px;background:var(--bg)}
+.card .h{display:grid;grid-template-columns:1fr 110px auto auto auto;gap:5px}
+.card button,.r button{padding:5px 8px}
+.hist{display:flex;gap:6px;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--ln);font-size:13px}
+.hist small{color:var(--mu);display:block}.hist div:last-child{display:flex;gap:4px}
+.pw{padding:20px;overflow:auto;background:#0e0b17}
+.paper{width:210mm;margin:0 auto;background:#fff;color:#000;padding:20mm 25mm;min-height:297mm;box-shadow:0 8px 30px #0008;font:12pt/1.2 'Times New Roman',Times,serif;transform-origin:top center}
+.paper h1{font:700 12pt 'Times New Roman',Times,serif;text-align:center;margin:0}
+.paper .jd{text-align:center;margin:0 0 5mm}.paper .bu{font-weight:700;text-decoration:underline}
+.paper table{border-collapse:collapse;width:100%;table-layout:fixed}
+.paper td{vertical-align:top;padding:0 0 .6mm;font-size:12pt}
+.paper .v{white-space:pre-wrap}
+.sec{margin-left:7mm}.st{display:flex}.st span:first-child{width:6mm;flex:none}
+.paper ul{list-style:none;margin:0;padding:0}.paper ul.in{margin-left:6mm}.paper li{display:flex;margin-bottom:.8mm}
+.paper li b{width:5mm;flex:none;font-weight:400}.paper p{margin:0 0 .8mm}.paper p.in{margin-left:6mm}
+.paper .sg td{text-align:center;width:50%}.paper .sp{height:22mm}.paper .nm{font-weight:700;text-decoration:underline}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--ac);padding:8px 16px;border-radius:8px;display:none;z-index:9}
+@media(max-width:900px){.app{grid-template-columns:1fr}.form{border:0}.pw{padding:10px}}
+@media print{
+ @page{size:A4;margin:20mm 25mm}
+ body{background:#fff}.top,.form,.toast{display:none!important}
+ .app{display:block}.pw{padding:0;background:#fff;overflow:visible}
+ .paper{zoom:1!important;width:auto;min-height:0;padding:0;box-shadow:none;margin:0}
+}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand"><svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#6d28d9"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg)"/><path d="M14 12h14l8 8v16a2 2 0 0 1-2 2H14a2 2 0 0 1-2-2V14a2 2 0 0 1 2-2z" fill="#fff" fill-opacity=".95"/><path d="M28 12v8h8" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linejoin="round"/><path d="M17 25h14M17 29.5h14M17 34h8" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round"/><path d="M34 28l5 5-8 3z" fill="#22d3ee"/></svg><h2>Notulen<span>BKPSDM Kota Pekalongan</span></h2></div>
+  <button data-act="new">Baru</button>
+  <button data-act="save">Simpan</button>
+  <button data-act="docx">Unduh Word</button>
+  <button data-act="pdf">Unduh PDF</button>
+  <button data-act="print" class="pri">Cetak</button>
+</div>
+<div class="app">
+<div class="form">
+  <fieldset><legend>Judul</legend>
+    <label>Jenis dokumen</label>
+    <input data-k="jenis" list="jl"><datalist id="jl"><option value="NOTULEN/HASIL RAPAT"><option value="NOTULEN PERTEMUAN"><option value="NOTULEN RAPAT"><option value="NOTULEN SOSIALISASI"></datalist>
+    <label>Nama kegiatan</label>
+    <textarea data-k="kegiatan" rows="2" placeholder="Mis. Monitoring Launching Gerakan Bersama Merubah Jelantah Jadi Rupiah"></textarea>
+    <label class="ck"><input type="checkbox" data-k="boldJudul"> Nama kegiatan tebal &amp; bergaris bawah</label>
+  </fieldset>
+  <fieldset><legend>Waktu dan tempat</legend>
+    <div class="g2"><div><label>Tanggal (hari terisi otomatis)</label><input type="date" data-k="tanggal"></div>
+    <div><label>Zona</label><select data-k="zona"><option>WIB</option><option>WITA</option><option>WIT</option></select></div></div>
+    <div class="g2"><div><label>Mulai</label><input type="time" data-k="mulai"></div>
+    <div><label>Selesai</label><input type="time" data-k="selesai" id="selesai"></div></div>
+    <label class="ck"><input type="checkbox" data-k="sd"> Sampai selesai</label>
+    <label>Tempat</label><input data-k="tempat" placeholder="Mis. Dinarpus Kota Pekalongan">
+    <label>Jenis kegiatan</label><input data-k="jenisKeg" placeholder="Kosong = sama dengan nama kegiatan">
+  </fieldset>
+  <fieldset><legend>Poin tambahan (opsional)</legend>
+    <div id="ex"></div><button data-act="xadd" style="margin-top:8px">+ Tambah poin</button>
+  </fieldset>
+  <fieldset><legend>Hasil kegiatan</legend>
+    <label>Judul poin terakhir</label><input data-k="hasilLabel" placeholder="Hasil Kegiatan / Susunan Acara">
+    <div id="sc"></div><button data-act="sadd" style="margin-top:8px">+ Tambah bagian</button>
+    <label style="margin-top:8px">Satu baris = satu butir. Awalan "-", "•", atau "1." dibuang otomatis.</label>
+  </fieldset>
+  <fieldset><legend>Tanda tangan</legend>
+    <div class="g2"><div><label>Sebutan</label><select data-k="notulisLabel"><option>Notulis</option><option>Notula</option></select></div>
+    <div><label>NIP (opsional)</label><input data-k="nip"></div></div>
+    <label>Nama petugas</label><input data-k="notulis">
+    <label class="ck" style="margin-top:10px"><input type="checkbox" data-k="kiri"> Tambah penanda tangan di kiri</label>
+    <div id="kr"><label>Kalimat atas</label><input data-k="kiriLabel"><label>Jabatan</label><input data-k="kiriJabatan"><label>Nama</label><input data-k="kiriNama"><label>NIP (opsional)</label><input data-k="kiriNip"></div>
+  </fieldset>
+  <fieldset><legend>Riwayat</legend><div id="hs"></div></fieldset>
+</div>
+<div class="pw" id="pw"><div class="paper" id="paper"></div></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s);
+const HARI=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+const BLN=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const KD='notulen_draft_v1',KH='notulen_riwayat_v1';
+const e=t=>String(t??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const a=t=>e(t).replace(/"/g,'&quot;');
+const today=()=>new Date().toLocaleDateString('sv-SE');
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const blank=(k={})=>({id:uid(),jenis:'NOTULEN/HASIL RAPAT',kegiatan:'',tanggal:today(),mulai:'08:00',selesai:'',sd:true,zona:'WIB',tempat:'',jenisKeg:'',extra:[],hasilLabel:'Hasil Kegiatan',sections:[{title:'',type:'bullet',text:''}],boldJudul:false,notulisLabel:'Notulis',notulis:'',nip:'',kiri:false,kiriLabel:'Mengetahui,',kiriJabatan:'',kiriNama:'',kiriNip:'',...k});
+const ld=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}};
+const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+let S=blank(ld(KD,{}));
+if(!S.sections||!S.sections.length)S.sections=[{title:'',type:'bullet',text:''}];
+
+function model(){
+  const d=S.tanggal?new Date(S.tanggal+'T00:00:00'):null,f=t=>(t||'').replace(':','.');
+  const tgl=d?`${HARI[d.getDay()]} / ${d.getDate()} ${BLN[d.getMonth()]} ${d.getFullYear()}`:'';
+  const w=S.mulai?f(S.mulai)+(S.sd?` ${S.zona} sampai selesai`:S.selesai?` - ${f(S.selesai)} ${S.zona}`:` ${S.zona}`):'';
+  const fields=[['Hari / Tanggal',tgl],['Waktu',w],['Tempat',S.tempat],['Jenis Kegiatan',S.jenisKeg||S.kegiatan],...S.extra.filter(x=>x.l.trim()).map(x=>[x.l.trim(),x.v])];
+  const secs=S.sections.map(s=>({title:s.title.trim(),type:s.type,items:s.type==='para'?s.text.split(/\n\s*\n/).map(x=>x.trim()).filter(Boolean):s.text.split('\n').map(x=>x.replace(/^\s*(?:[-•*]|\d+[.)])\s*/,'').trim()).filter(Boolean)}));
+  return{head:S.jenis||'NOTULEN',judul:S.kegiatan.trim(),fields,hl:S.hasilLabel||'Hasil Kegiatan',secs};
+}
+const LT='abcdefghijklmnopqrstuvwxyz';
+function html(m){
+  let h=`<h1>${e(m.head)}</h1>`;
+  if(m.judul)h+=`<div class="jd${S.boldJudul?' bu':''}">${e(m.judul)}</div>`;
+  h+='<table><colgroup><col style="width:7mm"><col style="width:43mm"><col style="width:4mm"><col></colgroup>';
+  m.fields.forEach((f,i)=>h+=`<tr><td>${i+1}.</td><td>${e(f[0])}</td><td>:</td><td class="v">${e(f[1])}</td></tr>`);
+  h+=`<tr><td>${m.fields.length+1}.</td><td>${e(m.hl)}</td><td>:</td><td></td></tr></table>`;
+  let li=0;
+  m.secs.forEach(s=>{
+    h+='<div class="sec">';
+    if(s.title)h+=`<div class="st"><span>${LT[li++]}.</span><span>${e(s.title)}</span></div>`;
+    const c=s.title?' class="in"':'';
+    if(s.type==='para')s.items.forEach(t=>h+=`<p${c}>${e(t)}</p>`);
+    else{h+=`<ul${c}>`;s.items.forEach((t,k)=>h+=`<li><b>${s.type==='num'?k+1+'.':'•'}</b><span>${e(t)}</span></li>`);h+='</ul>'}
+    h+='</div>';
+  });
+  const nip=n=>n?`<div>NIP. ${e(n)}</div>`:'';
+  h+='<br><table class="sg"><tr>';
+  h+=S.kiri?`<td><div>${e(S.kiriLabel)}</div><div>${e(S.kiriJabatan)}</div><div class="sp"></div><div class="nm">${e(S.kiriNama)}</div>${nip(S.kiriNip)}</td>`:'<td></td>';
+  h+=`<td><div>${e(S.notulisLabel)}</div>${S.kiri&&S.kiriJabatan?'<div>&nbsp;</div>':''}<div class="sp"></div><div class="nm">${e(S.notulis)}</div>${nip(S.nip)}</td></tr></table>`;
+  return h;
+}
+function upd(){
+  $('#paper').innerHTML=html(model());
+  sv(KD,S);fit();
+}
+function fit(){
+  const p=$('#paper'),w=$('#pw').clientWidth-(innerWidth<=900?20:40);
+  p.style.zoom=Math.min(1,w/(210*3.7795));
+}
+addEventListener('resize',fit);
+
+function rf(){
+  $('#ex').innerHTML=S.extra.map((x,i)=>`<div class="r"><input data-x="l" data-i="${i}" placeholder="Label (mis. Peserta)" value="${a(x.l)}"><input data-x="v" data-i="${i}" placeholder="Isi" value="${a(x.v)}"><button data-act="xdel" data-i="${i}" aria-label="Hapus">✕</button></div>`).join('');
+  const ty=(v,t,s)=>`<option value="${v}"${s.type===v?' selected':''}>${t}</option>`;
+  $('#sc').innerHTML=S.sections.map((s,i)=>`<div class="card"><div class="h"><input data-s="title" data-i="${i}" placeholder="Judul bagian (opsional)" value="${a(s.title)}"><select data-s="type" data-i="${i}">${ty('bullet','Bullet',s)}${ty('num','Nomor',s)}${ty('para','Paragraf',s)}</select><button data-act="sup" data-i="${i}" aria-label="Naik">↑</button><button data-act="sdn" data-i="${i}" aria-label="Turun">↓</button><button data-act="sdel" data-i="${i}" aria-label="Hapus">✕</button></div><textarea data-s="text" data-i="${i}" rows="6" style="margin-top:6px" placeholder="Satu baris = satu butir">${e(s.text)}</textarea></div>`).join('');
+}
+function rh(){
+  const H=ld(KH,[]);
+  $('#hs').innerHTML=H.length?H.map(x=>`<div class="hist"><div>${e(x.data.kegiatan||'(tanpa judul)').slice(0,60)}<small>${e(x.data.tanggal)}</small></div><div><button data-act="open" data-id="${x.id}">Buka</button><button data-act="dup" data-id="${x.id}">Duplikat</button><button data-act="del" data-id="${x.id}" aria-label="Hapus">✕</button></div></div>`).join(''):'<small style="color:var(--mu)">Belum ada notulen tersimpan.</small>';
+}
+function tog(){$('#selesai').disabled=S.sd;$('#kr').style.display=S.kiri?'block':'none'}
+function fill(){
+  document.querySelectorAll('[data-k]').forEach(el=>{const v=S[el.dataset.k];el.type==='checkbox'?el.checked=!!v:el.value=v??''});
+  rf();tog();upd();
+}
+document.addEventListener('input',ev=>{
+  const t=ev.target,d=t.dataset;
+  if(d.k){S[d.k]=t.type==='checkbox'?t.checked:t.value;if(d.k==='sd'||d.k==='kiri')tog()}
+  else if(d.x)S.extra[+d.i][d.x]=t.value;
+  else if(d.s)S.sections[+d.i][d.s]=t.value;
+  else return;
+  upd();
+});
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',1800)}
+function fname(){return 'Notulen_'+((S.kegiatan||'Rapat').replace(/[^\w]+/g,'_').slice(0,40))+'_'+S.tanggal}
+function dl(b,n){const u=URL.createObjectURL(b),l=document.createElement('a');l.href=u;l.download=n;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}
+
+function toPdf(m){
+  if(!window.jspdf){alert('Library PDF belum termuat. Periksa koneksi internet lalu muat ulang halaman.');return}
+  const d=new window.jspdf.jsPDF({unit:'mm',format:'a4'});
+  const L=25,R=185,T=24,B=278,LH=5.3;let y=T;
+  const c=t=>String(t??'').replace(/[\u2018\u2019]/g,"'").replace(/[\u201C\u201D]/g,'"').replace(/[\u2013\u2014]/g,'-').replace(/\u2026/g,'...').replace(/\u00A0/g,' ').replace(/[^\x00-\xFF]/g,'');
+  const sp=(t,w)=>d.splitTextToSize(c(t)||' ',w);
+  const nx=()=>{if(y>B){d.addPage();y=T}};
+  d.setFont('times','normal');d.setFontSize(12);
+  d.setFont('times','bold');nx();d.text(c(m.head),105,y,{align:'center'});y+=LH;
+  if(m.judul){
+    d.setFont('times',S.boldJudul?'bold':'normal');
+    sp(m.judul,160).forEach(t=>{nx();d.text(t,105,y,{align:'center'});if(S.boldJudul){const w=d.getTextWidth(t);d.line(105-w/2,y+.8,105+w/2,y+.8)}y+=LH});
+  }
+  y+=4;d.setFont('times','normal');
+  const row=(n,l,v)=>{
+    const p=sp(l,41),q=v===null?[]:sp(v,106),k=Math.max(p.length,q.length,1);
+    for(let i=0;i<k;i++){nx();if(!i){d.text(n,L,y);d.text(':',75,y)}if(p[i])d.text(p[i],32,y);if(q[i])d.text(q[i],79,y);y+=LH}
+  };
+  m.fields.forEach((f,i)=>row(i+1+'.',f[0],f[1]));
+  row(m.fields.length+1+'.',m.hl,null);
+  let li=0;
+  m.secs.forEach(s=>{
+    let base=32;
+    if(s.title){sp(s.title,R-38).forEach((t,i)=>{nx();if(!i)d.text(LT[li]+'.',32,y);d.text(t,38,y);y+=LH});li++;base=38}
+    s.items.forEach((t,k)=>{
+      if(s.type==='para')sp(t,R-base).forEach(x=>{nx();d.text(x,base,y);y+=LH});
+      else sp(t,R-base-5).forEach((x,i)=>{nx();if(!i){s.type==='num'?d.text(k+1+'.',base,y):d.circle(base+1,y-1.3,.5,'F')}d.text(x,base+5,y);y+=LH});
+      y+=.8;
+    });
+    y+=1.5;
+  });
+  const bl=[];
+  if(S.kiri)bl.push([60,[S.kiriLabel,S.kiriJabatan].filter(Boolean),S.kiriNama,S.kiriNip]);
+  bl.push([150,[S.notulisLabel],S.notulis,S.nip]);
+  const mx=Math.max(...bl.map(b=>b[1].length));
+  y+=8;if(y+mx*LH+22+LH*2>B){d.addPage();y=T}
+  bl.forEach(([cx,ls,nm,nip])=>{
+    let yy=y;
+    ls.forEach(t=>{d.setFont('times','normal');d.text(c(t),cx,yy,{align:'center'});yy+=LH});
+    yy=y+mx*LH+22;
+    if(nm){d.setFont('times','bold');d.text(c(nm),cx,yy,{align:'center'});const w=d.getTextWidth(c(nm));d.line(cx-w/2,yy+.8,cx+w/2,yy+.8);yy+=LH}
+    if(nip){d.setFont('times','normal');d.text('NIP. '+c(nip),cx,yy,{align:'center'})}
+  });
+  d.save(fname()+'.pdf');
+}
+
+async function toDocx(m){
+  const D=window.docx;
+  if(!D){return toDoc()}
+  const F='Times New Roman',SZ=24,TS=D.TabStopType.LEFT;
+  const R=(parts,o={})=>new D.TextRun({children:parts.flatMap((p,i)=>i?[new D.Tab(),p]:[p]),font:F,size:SZ,...o});
+  const T=(t,o={})=>new D.TextRun({text:t,font:F,size:SZ,...o});
+  const P=(ch,o={})=>new D.Paragraph({children:ch,spacing:{after:40},...o});
+  const ctr=D.AlignmentType.CENTER;
+  const ch=[P([T(m.head,{bold:true})],{alignment:ctr})];
+  if(m.judul)ch.push(P([T(m.judul,S.boldJudul?{bold:true,underline:{}}:{})],{alignment:ctr,spacing:{after:240}}));
+  const tabs=[397,2835,3062].map(position=>({type:TS,position}));
+  const frow=(n,l,v)=>{
+    const ls=String(v??'').split('\n');
+    ch.push(P([R([n,l,':',ls[0]]),...ls.slice(1).map(x=>T(x,{break:1}))],{tabStops:tabs,indent:{left:3062,hanging:3062}}));
+  };
+  m.fields.forEach((f,i)=>frow(i+1+'.',f[0],f[1]));
+  frow(m.fields.length+1+'.',m.hl,'');
+  let li=0;
+  m.secs.forEach(s=>{
+    let base=397;
+    if(s.title){ch.push(P([R([LT[li++]+'.',s.title])],{tabStops:[{type:TS,position:737}],indent:{left:737,hanging:340}}));base=737}
+    s.items.forEach((t,k)=>{
+      if(s.type==='para')ch.push(P([T(t)],{indent:{left:base}}));
+      else ch.push(P([R([s.type==='num'?k+1+'.':'•',t])],{tabStops:[{type:TS,position:base+284}],indent:{left:base+284,hanging:284}}));
+    });
+  });
+  const none={style:D.BorderStyle.NONE,size:0,color:'FFFFFF'};
+  const nb={top:none,bottom:none,left:none,right:none};
+  const cell=(ls,nm,nip)=>new D.TableCell({borders:nb,width:{size:50,type:D.WidthType.PERCENTAGE},children:[
+    ...ls.map(t=>P([T(t)],{alignment:ctr})),
+    ...[1,2,3,4].map(()=>P([],{alignment:ctr})),
+    P([T(nm||' ',{bold:true,underline:{}})],{alignment:ctr}),
+    ...(nip?[P([T('NIP. '+nip)],{alignment:ctr})]:[])
+  ]});
+  const lk=S.kiri?[S.kiriLabel,S.kiriJabatan].filter(Boolean):[];
+  const rk=[S.notulisLabel];while(rk.length<lk.length)rk.push(' ');
+  ch.push(P([]));
+  ch.push(new D.Table({width:{size:100,type:D.WidthType.PERCENTAGE},borders:{...nb,insideHorizontal:none,insideVertical:none},rows:[new D.TableRow({cantSplit:true,children:[cell(lk,S.kiri?S.kiriNama:'',S.kiri?S.kiriNip:''),cell(rk,S.notulis,S.nip)]})]}));
+  const doc=new D.Document({sections:[{properties:{page:{size:{width:11906,height:16838},margin:{top:1134,bottom:1134,left:1417,right:1417}}},children:ch}]});
+  dl(await D.Packer.toBlob(doc),fname()+'.docx');
+}
+function toDoc(){
+  const css='@page{size:21cm 29.7cm;margin:2cm 2.5cm}body{font:12pt "Times New Roman"}table{width:100%;border-collapse:collapse}td{vertical-align:top;font-size:12pt}.sg td{text-align:center}.jd{text-align:center}h1{font-size:12pt;text-align:center}.nm{font-weight:bold;text-decoration:underline}.sp{height:60pt}';
+  const h=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><style>${css}</style></head><body>${html(model())}</body></html>`;
+  dl(new Blob(['\ufeff',h],{type:'application/msword'}),fname()+'.doc');
+  toast('Library Word tidak termuat, file dibuat dalam format .doc');
+}
+
+function saveH(){
+  const H=ld(KH,[]),i=H.findIndex(x=>x.id===S.id),r={id:S.id,data:JSON.parse(JSON.stringify(S))};
+  i>=0?H[i]=r:H.unshift(r);sv(KH,H);rh();toast('Tersimpan di riwayat')
+}
+const KEEP=['notulisLabel','notulis','nip','kiri','kiriLabel','kiriJabatan','kiriNama','kiriNip','jenis','zona','tempat'];
+document.addEventListener('click',ev=>{
+  const b=ev.target.closest('[data-act]');if(!b)return;
+  const A=b.dataset.act,i=+b.dataset.i,id=b.dataset.id;
+  const mv=(arr,i,j)=>{if(j<0||j>=arr.length)return;[arr[i],arr[j]]=[arr[j],arr[i]]};
+  if(A==='print'){upd();print();return}
+  if(A==='pdf'){toPdf(model());return}
+  if(A==='docx'){toDocx(model());return}
+  if(A==='save'){saveH();return}
+  if(A==='new'){if(confirm('Mulai notulen baru? Isian saat ini dikosongkan (nama notulis tetap).')){const k={};KEEP.forEach(x=>k[x]=S[x]);S=blank(k);fill()}return}
+  if(A==='open'||A==='dup'){const x=ld(KH,[]).find(x=>x.id===id);if(x){S=blank(x.data);if(A==='dup'){S.id=uid();S.tanggal=today()}fill();scrollTo(0,0)}return}
+  if(A==='del'){if(confirm('Hapus dari riwayat?')){sv(KH,ld(KH,[]).filter(x=>x.id!==id));rh()}return}
+  if(A==='xadd')S.extra.push({l:'',v:''});
+  if(A==='xdel')S.extra.splice(i,1);
+  if(A==='sadd')S.sections.push({title:'',type:'bullet',text:''});
+  if(A==='sdel'&&S.sections.length>1)S.sections.splice(i,1);
+  if(A==='sup')mv(S.sections,i,i-1);
+  if(A==='sdn')mv(S.sections,i,i+1);
+  rf();upd();
+});
+fill();rh();
+</script>
+</body>
+</html>
